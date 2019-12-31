@@ -1,5 +1,8 @@
 const fs = require('fs')
 
+// given a json file with an array of objects
+// assume each object has an integer id in field '_id'
+// return an integer id with value 1 greater than the max existing id in the file
 exports.generateId = (fileName) => {
   const jsonObjectArray = this.readJsonObjectsFromFile(fileName)
   const ids = []
@@ -17,6 +20,7 @@ exports.readJsonObjectsFromFile = (fileToRead) => {
   return JSON.parse(fs.readFileSync(fileToRead, 'utf8'))
 }
 
+// write the given array of json objects to the given file
 exports.writeJsonObjectsToFile = (jsonObjects, outputFilename) => {
   console.log('writing json object to file ' + outputFilename)
   fs.writeFile(outputFilename, JSON.stringify(jsonObjects, null, 4), function (err) {

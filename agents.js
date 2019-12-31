@@ -1,8 +1,6 @@
 const fileUtilities = require('./fileUtilities')
-
 const express = require('express')
 const bodyParser = require('body-parser')
-
 const router = express.Router()
 
 const agentsJsonFile = './data/agents.json'
@@ -56,14 +54,12 @@ function createAgent (requestBody) {
 router.post('/', (req, resp) => {
   console.log('Handling POST /agents request...')
 
-  // validate body, make sure that all required fields are present (return an error response - maybe "400 - name field is required")
   if (!req.body.name || req.body.name === '' ||
       !req.body.phone ||
       !req.body.phone.mobile || req.body.phone.mobile === '') {
     resp.status(400).json({ error: 'name field and mobile number is required.' })
     return
   }
-  // generate an id (make sure it is unique and doesn't already exist)
 
   var agent = createAgent(req.body)
   console.log('created new agent:')
@@ -83,7 +79,7 @@ router.post('/', (req, resp) => {
 })
 
 router.get('/:id', (req, resp) => {
-  console.log('Handling GET /:id request....')
+  console.log('Handling GET /agents/:id request....')
 
   var agentDetail = null
   const agentId = req.params.id
@@ -106,7 +102,7 @@ router.get('/:id', (req, resp) => {
 })
 
 router.put('/:id', (req, resp) => {
-  console.log('Handling PUT /:id request....')
+  console.log('Handling PUT /agents/:id request....')
 
   if (!req.params.id || req.params.id === '') {
     resp.status(400).json({ error: 'ID field is required.' })
@@ -118,22 +114,11 @@ router.put('/:id', (req, resp) => {
   const agentIdToUpdate = req.params.id
   console.log('Updating agent: ' + agentIdToUpdate)
   var foundMatchingId = false
-  // if there is no id param, return 400 ('id is required')
-  // for each agent in agentList:
-  //    If the agentID is the one we are looking for, update any fields that were included in the request body
-  //    Add the agent to updatedAgentList (whether or not we updated it)
-
-  // if we got through the entire Foreach loop and didn't find a matching agent ID, return 404 "agent with that id was not found"
-  // otherwise, write the updateAgentList to the json file (overwrite previous contents)
-  // console.log('in foreach loop, current agent id is ' + agent._id)
 
   agentList.forEach(function (agent) {
-    console.log('agentId from file : ' + parseInt(agent._id))
-    console.log('agentId from request: ' + parseInt(agentIdToUpdate))
-
     if (parseInt(agent._id) === parseInt(agentIdToUpdate)) {
       foundMatchingId = true
-      console.log('i have found the id to update ' + agentIdToUpdate)
+      console.log('found agent to update with id: ' + agentIdToUpdate)
       if (req.body.name) {
         agent.name = req.body.name
       }
@@ -177,10 +162,6 @@ router.get('/:id/customers', (req, resp) => {
   const customerList = fileUtilities.readJsonObjectsFromFile(customersJsonFile)
   var matchingCustomers = []
   const agentId = req.params.id
-
-  // look at every customer in customerList
-  // if a customer has the same agent ID as the passed in ID, then add it
-  // to the list we will return
 
   customerList.forEach(function (customer) {
     if (parseInt(customer.agent_id) === parseInt(agentId)) {

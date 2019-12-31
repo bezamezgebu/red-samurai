@@ -1,4 +1,4 @@
-const express = require('express') 
+const express = require('express')
 const app = express()
 
 app.use(express.static('data'))
@@ -13,4 +13,4 @@ app.use((req, res) => {
     .send('unknown request')
 })
 
-app.listen(3000, () => console.log('listening on port 3000...')) 
+app.listen(3000, () => console.log('listening on port 3000...'))

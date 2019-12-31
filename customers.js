@@ -13,7 +13,6 @@ function checkAgentId (agentId) {
   const agentList = fileUtilities.readJsonObjectsFromFile(agentsJsonFile)
   var agentFound = false
   agentList.forEach(function (agent) {
-    console.log(agent._id)
     if (parseInt(agent._id) === parseInt(agentId)) {
       agentFound = true
     }
@@ -95,8 +94,6 @@ router.post('/', (req, resp) => {
   console.dir(customer)
   const customerList = fileUtilities.readJsonObjectsFromFile(customersJsonFile)
 
-  console.log('before adding new customer...')
-  console.dir(customerList)
   customerList.push(customer)
   console.log('after new customer is added')
   console.dir(customerList)
@@ -116,7 +113,7 @@ router.get('/', (req, resp) => {
 })
 
 router.put('/:id', (req, resp) => {
-  console.log('Handling PUT /:id request....')
+  console.log('Handling PUT /customers/:id request....')
 
   if (!req.params.id || req.params.id === '') {
     resp.status(400).json({ error: 'ID field is required.' })
@@ -126,12 +123,10 @@ router.put('/:id', (req, resp) => {
   const customerList = fileUtilities.readJsonObjectsFromFile(customersJsonFile)
   var updatedcustomerList = []
   const customerIdToUpdate = req.params.id
-  console.log('Updating customer: ' + customerIdToUpdate)
   var foundMatchingId = false
   customerList.forEach(function (customer) {
     if (parseInt(customer._id) === parseInt(customerIdToUpdate)) {
       foundMatchingId = true
-      console.log('i have found the id to update ' + customerIdToUpdate)
       if (req.body.agent_id) {
         customer.agent_id = req.body.agent_id
       }
@@ -195,7 +190,6 @@ router.delete('/:id', (req, resp) => {
   console.log('Handling DELETE request...')
   const customerList = fileUtilities.readJsonObjectsFromFile(customersJsonFile)
   const customerIdToDelete = req.params.id
-  console.log('Deleting customer: ' + customerIdToDelete)
   var foundMatchingId = false
   let customerToDelete = null
   customerList.forEach(function (customer, index) {
@@ -218,4 +212,5 @@ router.delete('/:id', (req, resp) => {
   fileUtilities.writeJsonObjectsToFile(customerList, customersJsonFile)
   resp.status(200).json({ message: 'Customer ' + customerIdToDelete + ' Deleted.' })
 })
+
 module.exports = router

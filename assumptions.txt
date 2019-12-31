@@ -1,0 +1,29 @@
+———— Assumptions ————
+
+GET /agents
+* will return all details (every field) for all agents
+* have assumed that the client would want all the information about all the agents 
+
+GET /agents/:id
+* have assumed that all ID’s are integer type 
+
+GET /agents/:id/customers
+* have assumed that address in the customers.json file holds street address, city, and state separated by commas
+
+POST /agents
+* when adding a new agent, the name field and mobile number are required. All other fields are optional.
+* the API will generate an ID (client does not need to specify one)
+
+POST /customers
+* when adding a new customer, agent’s ID and first name are required. All other fields are optional
+* have assumed that all customers have an agent ID 
+* the API will generate an ID (client does not need to specify one)
+
+PUT /agents/:id
+* when updating agent’s information, an existing agent’s ID is required (the endpoint returns 404 if the given ID is not found)
+
+PUT /customers/:id
+* when updating customer’s information an existing agent’s ID is required (the endpoint returns 404 if the given ID is not found)
+
+DELETE /customers/:id
+* when deleting a customer an existing customer ID is required (the endpoint returns 404 if the given ID is not found)

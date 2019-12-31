@@ -1,0 +1,10 @@
+———— Questions ————
+
+GET /agents
+*  Does the client want only the name and ID of each agent, or all the information about each agent ?
+
+POST /agents
+* Does the client need to include all fields to be added when adding a new agent?
+
+POST /customers
+* When adding a new customer, should the customer always have an agent ID when being added?

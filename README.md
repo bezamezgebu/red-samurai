@@ -23,3 +23,6 @@ The API has the following endpoints:
 `PUT /agents/:id` Update agent  
 `PUT /customers/:id` Update customer   
 `DELETE /customers/:id` Delete customer  
+
+### Assumptions and open questions for the business
+See the text files in the repo containing [questions](./questions.txt) and [assumptions](./assumptions.txt) about the API functionality.

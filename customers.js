@@ -201,7 +201,7 @@ router.delete('/:id', (req, resp) => {
   })
 
   if (!foundMatchingId) {
-    resp.status(404).json({ error: 'No agent found with ID ' + customerIdToDelete })
+    resp.status(404).json({ error: 'No customer found with ID ' + customerIdToDelete })
     return
   }
 

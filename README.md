@@ -1,4 +1,4 @@
-# speedo
+# Red Samurai
 
 ### Installation instructions
 #### Install Node
